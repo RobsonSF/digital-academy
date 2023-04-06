@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,17 +20,30 @@ public class Offer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String edition;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant startMoment;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant endMoment;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @OneToMany(mappedBy = "offer")
+    private List<Resource> resources = new ArrayList<>();
+
     public Offer() {
     }
 
-    public Offer(Long id, String edition, Instant startMoment, Instant endMoment, Course course) {
+    public Offer(
+            Long id,
+            String edition,
+            Instant startMoment,
+            Instant endMoment,
+            Course course
+    ) {
         this.id = id;
         this.edition = edition;
         this.startMoment = startMoment;
@@ -74,6 +89,10 @@ public class Offer implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
     }
 
     @Override
