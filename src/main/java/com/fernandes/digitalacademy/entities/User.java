@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,10 +28,19 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications;
+
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Set<Role> roles) {
+    public User(
+            Long id,
+            String name,
+            String email,
+            String password,
+            Set<Role> roles
+    ) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -76,6 +86,10 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 
     @Override
