@@ -1,14 +1,15 @@
 package com.fernandes.digitalacademy.entities;
 
 import com.fernandes.digitalacademy.entities.pk.EnrollmentId;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -27,6 +28,12 @@ public class Enrollment implements Serializable {
     private Instant  refundMoment = null;
     private  boolean available = true;
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+    private Set<Lesson> lessons = new HashSet<>();
+
+    @OneToMany(mappedBy = "enrollment")
+    private List<Deliver> deliveries =  new ArrayList<>();
 
     public Enrollment() {
     }
@@ -94,5 +101,11 @@ public class Enrollment implements Serializable {
         this.onlyUpdate = onlyUpdate;
     }
 
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
 
+    public List<Deliver> getDeliveries() {
+        return deliveries;
+    }
 }
