@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -29,7 +26,7 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Notification> notifications;
+    private List<Notification> notifications = new ArrayList<>();
 
     public User() {
     }
@@ -38,14 +35,12 @@ public class User implements Serializable {
             Long id,
             String name,
             String email,
-            String password,
-            Set<Role> roles
+            String password
     ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {
