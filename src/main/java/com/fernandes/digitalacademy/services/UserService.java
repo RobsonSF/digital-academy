@@ -15,7 +15,6 @@ public interface UserService {
     User findById(Long id);
 
     @Transactional
-
     User insert(UserRequest userRequest);
 
     @Transactional
