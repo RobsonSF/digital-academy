@@ -12,14 +12,14 @@ public interface UserService {
     Page<User> findAllPaged(Pageable pageable);
 
     @Transactional(readOnly = true)
-    User findByID(Long id);
+    User findById(Long id);
 
     @Transactional
 
     User insert(UserRequest userRequest);
 
     @Transactional
-    User update(Long id, UserRequest UserRequest);
+    User update(Long id, UserRequest userRequest);
 
     void delete(Long id);
 }
